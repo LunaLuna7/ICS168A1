@@ -33,12 +33,13 @@ public class Enemy : Entity
         timeElapsed -= Time.deltaTime;
         Move(1);
 
+        GetComponent<MeshRenderer>().enabled = false;
         if (hasAuthority == false)
         {
             return;
         }
 
-        GetComponent<MeshRenderer>().enabled = false; //Enemy only invisible to the owner(its in reverse but easy to debug this way)
+        GetComponent<MeshRenderer>().enabled = true; //Enemy only invisible to the owner
 
 
 
