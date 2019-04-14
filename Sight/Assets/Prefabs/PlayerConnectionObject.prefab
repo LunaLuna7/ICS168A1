@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7444008305235149790}
   - component: {fileID: 49246161}
   - component: {fileID: 1463062997368173976}
+  - component: {fileID: 3070928516978275022}
   m_Layer: 0
   m_Name: PlayerConnectionObject
   m_TagString: Untagged
@@ -80,3 +81,19 @@ MonoBehaviour:
   player: {fileID: 3210575654864960043, guid: b55d408d1ce67884ba83900383dcfa07, type: 3}
   enemy: {fileID: 3620202441231986919, guid: 24e6a26342ec64748b395a6aea336cd2, type: 3}
   myPlayer: {fileID: 0}
+--- !u!114 &3070928516978275022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7444008305235149791}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3c66d5289db65c41b24a282d088dc08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveNum: 1
+  waveAmplifier: 3
+  baseNumEnemies: 3
+  enemy: {fileID: 3620202441231986919, guid: 24e6a26342ec64748b395a6aea336cd2, type: 3}
