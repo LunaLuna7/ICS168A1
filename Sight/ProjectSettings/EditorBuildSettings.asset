@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Luna/LunaWorkScene.unity
+    guid: a0a1b46292f635c4998130aaf6a3d1fa
   m_configObjects: {}

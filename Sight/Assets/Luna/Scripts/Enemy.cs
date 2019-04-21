@@ -8,7 +8,8 @@ public class Enemy : Entity
     public EnemyStats enemyStats;
     private float timeElapsed;
     float horizontalMove;
-
+    public PlayerConnection playerConnection;
+   
     void Start()
     {
         timeElapsed = enemyStats.moveRate;
@@ -30,16 +31,18 @@ public class Enemy : Entity
 
     void Update()
     {
+        Debug.Log(netId);
         timeElapsed -= Time.deltaTime;
         Move(1);
 
         GetComponent<MeshRenderer>().enabled = false;
-        if (hasAuthority == false)
-        {
-            return;
-        }
+        
+        //if (playerConnection.netId)
+        //{
+        //    return;
+        //S}
 
-        GetComponent<MeshRenderer>().enabled = true; //Enemy only invisible to the owner
+        GetComponent<MeshRenderer>().enabled = true; //Enemy only visible to the owner
 
 
 
