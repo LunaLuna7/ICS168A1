@@ -16,6 +16,7 @@ public class EnemyManager : NetworkBehaviour
     private GameObject enemySpawnObject;
     private List<Transform> enemySpawnLocations = new List<Transform>(); //holds all spawn locations in game
     private List<int> currentlyUsedLocations = new List<int>(); //tracks current indexes, ensuring no repeats
+
     void Start()
     {
         if (isLocalPlayer == false)
@@ -72,6 +73,7 @@ public class EnemyManager : NetworkBehaviour
        // for (int i = 0; i < enemyNumber; i++)
         //{
             GameObject newEnemy = Instantiate(enemy);
+        newEnemy.tag = "Enemy";
             newEnemy.transform.position = RandomPoint().position;
             NetworkServer.SpawnWithClientAuthority(enemy, connectionToClient);
         //}

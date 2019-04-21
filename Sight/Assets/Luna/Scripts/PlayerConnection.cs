@@ -21,7 +21,7 @@ public class PlayerConnection : NetworkBehaviour
             return;
 
         CmdSpawnPlayer();
-        InvokeRepeating("CmdSpawnEnemy", 0, 5f);
+        //InvokeRepeating("CmdSpawnEnemy", 0, 5f);
     }
 
     // Update is called once per frame
