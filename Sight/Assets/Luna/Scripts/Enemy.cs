@@ -31,18 +31,17 @@ public class Enemy : Entity
 
     void Update()
     {
-        Debug.Log(netId);
         timeElapsed -= Time.deltaTime;
         Move(1);
 
-        GetComponent<MeshRenderer>().enabled = false;
+        //GetComponent<MeshRenderer>().enabled = false;
         
         //if (playerConnection.netId)
         //{
         //    return;
         //S}
 
-        GetComponent<MeshRenderer>().enabled = true; //Enemy only visible to the owner
+        //GetComponent<MeshRenderer>().enabled = true; //Enemy only visible to the owner
 
 
 

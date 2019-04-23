@@ -16,11 +16,17 @@ public class EnemyManager : NetworkBehaviour
     private GameObject enemySpawnObject;
     private List<Transform> enemySpawnLocations = new List<Transform>(); //holds all spawn locations in game
     private List<int> currentlyUsedLocations = new List<int>(); //tracks current indexes, ensuring no repeats
+    public PlayerConnection playerConnection;
+
+    private void Awake()
+    {
+        playerConnection = GetComponent<PlayerConnection>();
+    }
 
     void Start()
     {
-        if (isLocalPlayer == false)
-            return;
+        //if (isLocalPlayer == false)
+          //  return;
         
         enemySpawnObject = GameObject.FindGameObjectWithTag("spawnLocations");
         foreach(Transform child in enemySpawnObject.transform)
@@ -73,12 +79,18 @@ public class EnemyManager : NetworkBehaviour
        // for (int i = 0; i < enemyNumber; i++)
         //{
             GameObject newEnemy = Instantiate(enemy);
-        newEnemy.tag = "Enemy";
+            newEnemy.tag = "Enemy";
             newEnemy.transform.position = RandomPoint().position;
             NetworkServer.SpawnWithClientAuthority(enemy, connectionToClient);
         //}
 
         Debug.Log(waveNum);
         waveNum++;
+        Debug.Log("WHAT are you: " + playerConnection.isLocalPlayer);
+        enemy.GetComponent<MeshRenderer>().enabled = false;
+        if (playerConnection.isLocalPlayer)
+            enemy.GetComponent<MeshRenderer>().enabled = true;
+
+        
     }
 }
