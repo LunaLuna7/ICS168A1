@@ -76,13 +76,15 @@ public class EnemyManager : NetworkBehaviour
         if (enemyNumber >= 10)
             enemyNumber = enemySpawnLocations.Count - 1;
 
-       // for (int i = 0; i < enemyNumber; i++)
-        //{
+        for (int i = 0; i < enemyNumber; i++)
+        {
             GameObject newEnemy = Instantiate(enemy);
             newEnemy.tag = "Enemy";
             newEnemy.transform.position = RandomPoint().position;
             NetworkServer.SpawnWithClientAuthority(enemy, connectionToClient);
-        //}
+        }
+
+        currentlyUsedLocations = new List<int>();
 
         Debug.Log(waveNum);
         waveNum++;
