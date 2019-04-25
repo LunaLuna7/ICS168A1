@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   moveDistance: 1
-  moveRate: 0.5
+  moveRate: 3

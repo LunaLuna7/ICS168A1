@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class Player : Entity
 {
@@ -30,7 +31,7 @@ public class Player : Entity
         }
     }
 
-    public override void OnDeath()
+    public override void RpcOnDeath()
     {
         playerDead = true;
         GetComponentInChildren<Renderer>().material = deadMaterial;
@@ -68,7 +69,7 @@ public class Player : Entity
         currentHealth -= amount;
 
         if (currentHealth <= 0)
-            OnDeath();
+            RpcOnDeath();
         
     }
 

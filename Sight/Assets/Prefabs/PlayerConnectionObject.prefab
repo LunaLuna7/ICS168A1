@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3070928516978275022}
   m_Layer: 0
   m_Name: PlayerConnectionObject
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveNum: 1
-  waveAmplifier: 3
-  baseNumEnemies: 3
+  waveAmplifier: 10
+  baseNumEnemies: 1
   enemy: {fileID: 3620202441231986919, guid: 24e6a26342ec64748b395a6aea336cd2, type: 3}
+  playerConnection: {fileID: 0}

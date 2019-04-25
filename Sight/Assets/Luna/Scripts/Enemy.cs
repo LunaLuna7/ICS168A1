@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class Enemy : Entity
 {
@@ -23,10 +24,12 @@ public class Enemy : Entity
             transform.Translate(0, 0, enemyStats.moveDistance * move);
         }
     }
+    
 
-    public override void OnDeath()
+    
+    public override void RpcOnDeath()
     {
-        
+     
     }
 
     void Update()
