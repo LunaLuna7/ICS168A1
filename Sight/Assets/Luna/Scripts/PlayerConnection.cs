@@ -19,7 +19,7 @@ public class PlayerConnection : NetworkBehaviour
     {
         if (isLocalPlayer == false)
             return;
-
+      
         CmdSpawnPlayer();
         //InvokeRepeating("CmdSpawnEnemy", 0, 5f);
     }
@@ -42,13 +42,4 @@ public class PlayerConnection : NetworkBehaviour
         //Propagates p to all clients
         NetworkServer.SpawnWithClientAuthority(p, connectionToClient);
     }
-
-    /*
-    [Command]
-    void CmdSpawnEnemy()
-    {
-        GameObject e = Instantiate(enemy);
-        e.transform.position = new Vector3(Random.Range(-3,3), e.transform.position.y, e.transform.position.z);
-        NetworkServer.SpawnWithClientAuthority(e, connectionToClient); //SOMEWHERE IN HERE WE NEED TO GIVE AUTHORITY TO SPECIFIC PLAYER
-    }*/
 }

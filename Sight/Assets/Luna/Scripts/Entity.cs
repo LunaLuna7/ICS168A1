@@ -18,5 +18,6 @@ public abstract class Entity : NetworkBehaviour
     // Update is called once per frame
    
     abstract public void Move(float move);
-    abstract public void OnDeath();
+    [ClientRpc]
+    abstract public void RpcOnDeath();
 }

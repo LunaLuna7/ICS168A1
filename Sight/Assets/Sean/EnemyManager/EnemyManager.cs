@@ -17,14 +17,25 @@ public class EnemyManager : NetworkBehaviour
     private List<Transform> enemySpawnLocations = new List<Transform>(); //holds all spawn locations in game
     private List<int> currentlyUsedLocations = new List<int>(); //tracks current indexes, ensuring no repeats
     public PlayerConnection playerConnection;
+    public static int EnemyManagers;
 
     private void Awake()
     {
+        //================update=============
+        //So I basically kill the second EnemyManager since one is spawn for each player so there is only 1 on the scene
+        //from the first connected player
         playerConnection = GetComponent<PlayerConnection>();
+        EnemyManagers++;
+        if (EnemyManagers > 1)
+            this.enabled = false;
     }
 
     void Start()
     {
+        Debug.Log("EnemeyManagers: " + EnemyManagers);
+        //Need to comment out so there is an enemySpawner on the other guys computer and then we can do the visibility base
+        //on authority
+        
         //if (isLocalPlayer == false)
           //  return;
         
@@ -39,13 +50,14 @@ public class EnemyManager : NetworkBehaviour
             throw new MissingReferenceException();
         }
 
-        InvokeRepeating("CmdSpawnEnemy", 0, 5f);
+        InvokeRepeating("RpcSpawnEnemy", 0, 15f);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+       
     }
 
     //returns a transform within the enemySpawnLocations that hasn't been used
@@ -67,9 +79,11 @@ public class EnemyManager : NetworkBehaviour
         return enemySpawnLocations[0];
     }
 
-    [Command]
-    void CmdSpawnEnemy()
+    [ClientRpc]
+    void RpcSpawnEnemy()
     {
+
+        Debug.Log(playerConnection.isLocalPlayer);
         //How many enemies to spawn
         int enemyNumber = (waveNum/waveAmplifier) + baseNumEnemies;
         //ensure that the number of enemies does not exceed the number of columns-1, or else game is impossible
@@ -82,16 +96,49 @@ public class EnemyManager : NetworkBehaviour
             newEnemy.tag = "Enemy";
             newEnemy.transform.position = RandomPoint().position;
             NetworkServer.SpawnWithClientAuthority(enemy, connectionToClient);
+
+            int playerToSee = Random.Range(0, 2);
+
+            //================update=============
+            //some werid stuff about randomising who can see waht base on playerConnection is local player. Atm this doesnt seem to
+            //be working completely since I think what this guy spawns is not actually on the otehr players? I dunno play around wtih it
+
+            if (playerToSee == 0)
+            {
+                Debug.Log("Owner can see");
+                if (playerConnection.isLocalPlayer)
+                {
+                    Debug.Log("A");
+                    newEnemy.GetComponent<MeshRenderer>().enabled = true;
+                }
+                else if (!playerConnection.isLocalPlayer)
+                {
+                    Debug.Log("B");
+                    newEnemy.GetComponent<MeshRenderer>().enabled = false;
+                }
+            }
+            else
+            {
+                Debug.Log("Owner cant see");
+                if (playerConnection.isLocalPlayer)
+                {
+                    Debug.Log("C");
+                    newEnemy.GetComponent<MeshRenderer>().enabled = false;
+                }
+                else if (!playerConnection.isLocalPlayer)
+                {
+                    Debug.Log("D");
+                    newEnemy.GetComponent<MeshRenderer>().enabled = true;
+                }
+            }
+
         }
 
         currentlyUsedLocations = new List<int>();
-
-        Debug.Log(waveNum);
         waveNum++;
-        Debug.Log("WHAT are you: " + playerConnection.isLocalPlayer);
-        enemy.GetComponent<MeshRenderer>().enabled = false;
-        if (playerConnection.isLocalPlayer)
-            enemy.GetComponent<MeshRenderer>().enabled = true;
+
+       
+
 
         
     }
