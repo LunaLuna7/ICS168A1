@@ -16,7 +16,8 @@ public class EnemyManager : NetworkBehaviour
     private GameObject enemySpawnObject;
     private List<Transform> enemySpawnLocations = new List<Transform>(); //holds all spawn locations in game
     private List<int> currentlyUsedLocations = new List<int>(); //tracks current indexes, ensuring no repeats
-    public PlayerConnection playerConnection;
+    public PlayerConnection playerConnection1;
+    public PlayerConnection PlayerConnection2 = new PlayerConnection();
     public static int EnemyManagers;
 
     private void Awake()
@@ -24,7 +25,6 @@ public class EnemyManager : NetworkBehaviour
         //================update=============
         //So I basically kill the second EnemyManager since one is spawn for each player so there is only 1 on the scene
         //from the first connected player
-        playerConnection = GetComponent<PlayerConnection>();
         EnemyManagers++;
         if (EnemyManagers > 1)
             this.enabled = false;
@@ -32,6 +32,7 @@ public class EnemyManager : NetworkBehaviour
 
     void Start()
     {
+        playerConnection1 = GetComponent<PlayerConnection>();
         Debug.Log("EnemeyManagers: " + EnemyManagers);
         //Need to comment out so there is an enemySpawner on the other guys computer and then we can do the visibility base
         //on authority
@@ -83,7 +84,7 @@ public class EnemyManager : NetworkBehaviour
     void RpcSpawnEnemy()
     {
 
-        Debug.Log(playerConnection.isLocalPlayer);
+        Debug.Log(playerConnection1.isLocalPlayer);
         //How many enemies to spawn
         int enemyNumber = (waveNum/waveAmplifier) + baseNumEnemies;
         //ensure that the number of enemies does not exceed the number of columns-1, or else game is impossible
@@ -106,12 +107,12 @@ public class EnemyManager : NetworkBehaviour
             if (playerToSee == 0)
             {
                 Debug.Log("Owner can see");
-                if (playerConnection.isLocalPlayer)
+                if (playerConnection1.isLocalPlayer)
                 {
                     Debug.Log("A");
                     newEnemy.GetComponent<MeshRenderer>().enabled = true;
                 }
-                else if (!playerConnection.isLocalPlayer)
+                else if (!playerConnection1.isLocalPlayer)
                 {
                     Debug.Log("B");
                     newEnemy.GetComponent<MeshRenderer>().enabled = false;
@@ -120,12 +121,12 @@ public class EnemyManager : NetworkBehaviour
             else
             {
                 Debug.Log("Owner cant see");
-                if (playerConnection.isLocalPlayer)
+                if (playerConnection1.isLocalPlayer)
                 {
                     Debug.Log("C");
                     newEnemy.GetComponent<MeshRenderer>().enabled = false;
                 }
-                else if (!playerConnection.isLocalPlayer)
+                else if (!playerConnection1.isLocalPlayer)
                 {
                     Debug.Log("D");
                     newEnemy.GetComponent<MeshRenderer>().enabled = true;
