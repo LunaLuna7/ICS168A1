@@ -12,7 +12,14 @@ public class PlayerConnection : NetworkBehaviour
     public GameObject player;
     public GameObject enemy;
     public GameObject myPlayer;
+    public static int playerConnections;
 
+    private void Awake()
+    {
+        playerConnections++;
+        if(playerConnections >= 2)
+            GameObject.FindGameObjectWithTag("PlayerConnection").GetComponent<EnemyManager>().PlayerConnection2 = this;
+    }
 
     // Start is called before the first frame update
     void Start()
