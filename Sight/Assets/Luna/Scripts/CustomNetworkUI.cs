@@ -11,7 +11,7 @@ public class CustomNetworkUI : NetworkManager
     {
         SetPort();
         NetworkManager.singleton.StartHost();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void JoinGame()
