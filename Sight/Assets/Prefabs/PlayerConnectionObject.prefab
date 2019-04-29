@@ -97,5 +97,5 @@ MonoBehaviour:
   waveAmplifier: 10
   baseNumEnemies: 1
   enemy: {fileID: 3620202441231986919, guid: 24e6a26342ec64748b395a6aea336cd2, type: 3}
-  playerConnection1: {fileID: 0}
+  playerConnection1: {fileID: 1463062997368173976}
   PlayerConnection2: {fileID: 0}

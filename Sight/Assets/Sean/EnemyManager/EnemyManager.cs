@@ -32,8 +32,7 @@ public class EnemyManager : NetworkBehaviour
 
     void Start()
     {
-        playerConnection1 = GetComponent<PlayerConnection>();
-        Debug.Log("EnemeyManagers: " + EnemyManagers);
+        
         //Need to comment out so there is an enemySpawner on the other guys computer and then we can do the visibility base
         //on authority
         
@@ -41,7 +40,8 @@ public class EnemyManager : NetworkBehaviour
           //  return;
         
         enemySpawnObject = GameObject.FindGameObjectWithTag("spawnLocations");
-        foreach(Transform child in enemySpawnObject.transform)
+
+        foreach (Transform child in enemySpawnObject.transform)
         {
             enemySpawnLocations.Add(child);
         }
@@ -57,8 +57,9 @@ public class EnemyManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-       
+        if(playerConnection1 == null)
+            playerConnection1 = GetComponent<PlayerConnection>();
+ 
     }
 
     //returns a transform within the enemySpawnLocations that hasn't been used
@@ -96,7 +97,7 @@ public class EnemyManager : NetworkBehaviour
             GameObject newEnemy = Instantiate(enemy);
             newEnemy.tag = "Enemy";
             newEnemy.transform.position = RandomPoint().position;
-            NetworkServer.SpawnWithClientAuthority(enemy, connectionToClient);
+            NetworkServer.SpawnWithClientAuthority(newEnemy, connectionToClient);
 
             int playerToSee = Random.Range(0, 2);
 
