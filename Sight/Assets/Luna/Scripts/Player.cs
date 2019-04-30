@@ -9,6 +9,7 @@ public class Player : Entity
     [SerializeField] private float moveRate = .2f; //How often should the Entity be able to move
     public int health;
     public int currentHealth;
+    public CameraShake cameraShake;
     public Material deadMaterial;
     public Material defaultMaterial;
     private float timeElapsed;
@@ -19,7 +20,8 @@ public class Player : Entity
     {
         currentHealth = health;
         playerDead = false;
-        timeElapsed = moveRate;    
+        timeElapsed = moveRate;
+        cameraShake = FindObjectOfType<CameraShake>();
     }
 
     public override void Move(float move)
@@ -35,7 +37,9 @@ public class Player : Entity
     {
         playerDead = true;
         GetComponentInChildren<Renderer>().material = deadMaterial;
+        StartCoroutine(cameraShake.shake(.5f, .8f));
         StartCoroutine(Revive());
+        
     }
 
     void Update()

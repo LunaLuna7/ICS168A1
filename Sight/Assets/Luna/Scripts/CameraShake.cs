@@ -17,7 +17,7 @@ public class CameraShake : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            StartCoroutine(shake(.5f, .8f));
+            StartCoroutine(shake(1f, .8f));
         }
     }
 
@@ -27,8 +27,8 @@ public class CameraShake : MonoBehaviour
 
         while (duration > 0)
         {
-            float x = Random.Range(-1f, 1f) * power;
-            float y = Random.Range(-1f, 1f) * power;
+            float x = startPos.x +Random.Range(-1f, 1f) * power;
+            float y = startPos.y +Random.Range(-1f, 1f) * power;
 
             transform.localPosition = new Vector3(x, y, startPos.z);
 
