@@ -141,10 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb145b62762ae44fac405459fa3ab8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 11400000, guid: cc64ed1b4d23ff74f946d89648a4de33, type: 2}
+  enemyStats: {fileID: 11400000, guid: aee18adc478da004ba3a0ff0a8fc3eea, type: 2}
   playerConnection: {fileID: 1463062997368173976, guid: cd3579bb87e4feb49ad307a726859291,
     type: 3}
-  ps: {fileID: 0}
 --- !u!114 &5328391775345959072
 MonoBehaviour:
   m_ObjectHideFlags: 0

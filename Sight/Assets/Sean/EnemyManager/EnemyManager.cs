@@ -38,20 +38,24 @@ public class EnemyManager : NetworkBehaviour
         
         //if (isLocalPlayer == false)
           //  return;
-        
+
+             
         enemySpawnObject = GameObject.FindGameObjectWithTag("spawnLocations");
 
+        Debug.Log(enemySpawnLocations);
         foreach (Transform child in enemySpawnObject.transform)
         {
             enemySpawnLocations.Add(child);
-        }
-
+            Debug.Log(child);
+        } 
+        Debug.Log(enemySpawnObject);
+        
         if (enemy == null)
         {
             throw new MissingReferenceException();
         }
 
-        InvokeRepeating("RpcSpawnEnemy", 0, 15f);
+        InvokeRepeating("RpcSpawnEnemy", 0, 5f);
     }
 
     // Update is called once per frame
