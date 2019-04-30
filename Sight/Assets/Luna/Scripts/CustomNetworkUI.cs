@@ -11,6 +11,7 @@ public class CustomNetworkUI : NetworkManager
     {
         SetPort();
         NetworkManager.singleton.StartHost();
+        //NetworkManager.singleton.StartClient();
         SceneManager.LoadScene(1);
     }
 
@@ -19,7 +20,7 @@ public class CustomNetworkUI : NetworkManager
         SetIPAddress();
         SetPort();
         NetworkManager.singleton.StartClient();
-
+        SceneManager.LoadScene(1);
     }
 
     public void SetIPAddress()
