@@ -20,6 +20,7 @@ public class EnemyDestroyer : MonoBehaviour
         ps.Play();
         yield return new WaitForSeconds(duration);
         ps.Stop();
+        yield return new WaitForSeconds(duration);
         Destroy(other.gameObject);
     } 
 }

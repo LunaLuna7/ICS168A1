@@ -9,7 +9,8 @@ public class Player : Entity
     [SerializeField] private float moveRate = .2f; //How often should the Entity be able to move
     public int health;
     public int currentHealth;
-    public CameraShake cameraShake;
+    private CameraShake cameraShake;
+    private ParticleSystem ps;
     public Material deadMaterial;
     public Material defaultMaterial;
     private float timeElapsed;
@@ -18,10 +19,13 @@ public class Player : Entity
 
     void Start()
     {
+        ps = this.GetComponent<ParticleSystem>();
+        ps.Stop();
         currentHealth = health;
         playerDead = false;
         timeElapsed = moveRate;
         cameraShake = FindObjectOfType<CameraShake>();
+        //ps = this.GetComponent<ParticleSystem>();
     }
 
     public override void Move(float move)
@@ -29,7 +33,8 @@ public class Player : Entity
         if(timeElapsed <= 0)
         {
            timeElapsed = moveRate;
-           transform.Translate(moveDistance * move, 0, 0);   
+           transform.Translate(moveDistance * move, 0, 0);
+           StartCoroutine(activateParticles(move));
         }
     }
 
@@ -83,5 +88,15 @@ public class Player : Entity
         currentHealth = health;
         playerDead = false;
         GetComponentInChildren<Renderer>().material = defaultMaterial;
+    }
+    public IEnumerator activateParticles(float direction,float duration= .3f)
+    {
+     
+        var main = ps.main;
+        if (direction < 0) main.startRotation = main.startRotation;
+        ps.Play();
+        yield return new WaitForSeconds(duration);
+        ps.Stop();
+
     }
 }

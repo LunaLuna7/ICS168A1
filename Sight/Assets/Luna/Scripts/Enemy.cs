@@ -10,13 +10,13 @@ public class Enemy : Entity
     private float timeElapsed;
     float horizontalMove;
     public PlayerConnection playerConnection;
-    public ParticleSystem ps;
+    private ParticleSystem ps;
    
     void Start()
     {
         timeElapsed = enemyStats.moveRate;
-        ps = this.GetComponent<ParticleSystem>();
-        ps.Stop();
+        this.GetComponent<ParticleSystem>().Stop();
+       
     }
 
     public override void Move(float move)
