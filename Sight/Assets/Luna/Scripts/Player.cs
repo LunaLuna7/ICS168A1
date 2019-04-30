@@ -10,22 +10,25 @@ public class Player : Entity
     public int health;
     public int currentHealth;
     private CameraShake cameraShake;
-    private ParticleSystem ps;
+    //private ParticleSystem ps;
     public Material deadMaterial;
     public Material defaultMaterial;
     private float timeElapsed;
     public bool playerDead;
     float horizontalMove;
+    public static int playersDead;
+    public GameObject GameOver;
 
     void Start()
     {
-        ps = this.GetComponent<ParticleSystem>();
-        ps.Stop();
+        //ps = this.GetComponent<ParticleSystem>();
+        //ps.Stop();
         currentHealth = health;
         playerDead = false;
         timeElapsed = moveRate;
         cameraShake = FindObjectOfType<CameraShake>();
         //ps = this.GetComponent<ParticleSystem>();
+        playersDead = 0;
     }
 
     public override void Move(float move)
@@ -34,17 +37,22 @@ public class Player : Entity
         {
            timeElapsed = moveRate;
            transform.Translate(moveDistance * move, 0, 0);
-           StartCoroutine(activateParticles(move));
+           //StartCoroutine(activateParticles(move));
         }
     }
 
     public override void RpcOnDeath()
     {
-        playerDead = true;
         GetComponentInChildren<Renderer>().material = deadMaterial;
+        playersDead++;
+        playerDead = true;
         StartCoroutine(cameraShake.shake(.5f, .8f));
-        StartCoroutine(Revive());
-        
+        if(playersDead >= 2)
+        {
+            
+        }
+        else
+            StartCoroutine(Revive());
     }
 
     void Update()
@@ -67,7 +75,7 @@ public class Player : Entity
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && !playerDead)
         {
             DamagePlayer(1);
         }
@@ -84,12 +92,14 @@ public class Player : Entity
 
     public IEnumerator Revive()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(6f);
         currentHealth = health;
         playerDead = false;
         GetComponentInChildren<Renderer>().material = defaultMaterial;
+        playersDead--;
     }
-    public IEnumerator activateParticles(float direction,float duration= .3f)
+
+    /*public IEnumerator activateParticles(float direction,float duration= .3f)
     {
      
         var main = ps.main;
@@ -98,5 +108,5 @@ public class Player : Entity
         yield return new WaitForSeconds(duration);
         ps.Stop();
 
-    }
+    }*/
 }
