@@ -13,13 +13,7 @@ public class CameraShake : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown("space"))
-        {
-            StartCoroutine(shake(1f, .8f));
-        }
-    }
+    
 
     public IEnumerator shake(float duration, float power,float dampingSpeed = 1.0f)
     {
