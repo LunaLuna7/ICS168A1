@@ -59,5 +59,6 @@ public class CustomNetworkUI : NetworkManager
     {
         GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.RemoveAllListeners();
         GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.AddListener(NetworkManager.singleton.StopHost);
+        GameObject.Find("ButtonDisconnect").GetComponent<Button>().onClick.AddListener(NetworkManager.singleton.StopClient);
     }
 }
